@@ -1,87 +1,121 @@
-<script lang="ts" setup>
-import { ref } from 'vue'
+<script setup>
+import { ref,computed} from 'vue'
 import { 
-DocumentChecked,
   Expand,Fold,ShoppingCart
 } from '@element-plus/icons-vue'
 
-// import duck from './assets/img/duck.png'
+const isActive = ref(false);
 
-const fits = ['scale-down']
-const url = './assets/img/duck.png'
+const toggle = () => {
+  isActive.value = !isActive.value;
+};
+
+
+const src='RoastDuck.jpg'
+
+
+const items=[
+{id:1,food:'All Food'},
+{id:2,food:'Meat'},
+{id:3,food:'Vegetable'},
+{id:4,food:'Drinks'}
+]
 
 
 
-let exp = true
-const activeIndex = ref('0')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-  if(key === '0'){
-    exp = !exp;
-    console.log(exp);
-    
-  }
-}
-let items;
-items=[{id:1,food:'duck'},
-{id:2,food:'pig'},
-{id:3,food:'beef'},
-{id:4,food:'fish'}]
 </script>
-
 <template>
+ 
 
-
-  <!-- header menu -->
-    <el-menu
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      :ellipsis="false"
-      @select="handleSelect"
-    >
-
-      <div class="flex-grow" />
-        <el-menu-item index="0" class="menu-item" style="padding-bottom:1em">
-          <el-icon v-if="exp" :size="60"><Expand /></el-icon>
-          <el-icon v-else :size="60"><Fold /></el-icon>
-        </el-menu-item>
-        
-        <el-menu-item index="1" class="menu-item" style="margin:auto">
-          <img src="./assets/img/duck.png" class="duck-logo"/>
-        </el-menu-item>
-        <el-menu-item index="2" class="menu-item" style="padding-bottom:1em"><el-icon :size="60"><ShoppingCart /></el-icon></el-menu-item>
-      </el-menu>
-
-   <!-- CATEGORY MENU -->
-    <el-scrollbar>
-    <div class="scrollbar-flex-content">
-      <p v-for="item in items" :key="item.id" native='false' class="scrollbar-demo-item">
-        <div style="border-radius: 50%; width: 2.5rem; height: 2.5rem; background-color: white; " >
-          <img style=" width: 2rem; height: 2rem;" src='./assets/img/duck.png' />
-        </div>
-        <div style='padding-right:10%'>{{ item.food }}</div>
-      </p>
+    <!-- header menu -->
+    <div class="menu-head">
+      <div class="menu-head-item">  
+        <el-icon :size="30" v-if="!isActive" @click="toggle"><Expand /></el-icon>
+        <el-icon v-else @click="toggle" :size="30"><Fold /></el-icon>
+      </div>
+      <div class="menu-head-item">  
+        <img src="./assets/img/duck.png" class="duck-logo">
+      </div>
+      <div class="menu-head-item">  
+        <el-icon :size="30"><ShoppingCart /></el-icon>
+      </div>
     </div>
-  </el-scrollbar>
+    
+    <div class="divide" />
+    <!-- CATEGORY MENU -->
+    <el-scrollbar style="background-color: white;">
+      <div class="scrollbar-flex-content">
+        <p v-for="item in items" :key="item.id" native='false' class="scrollbar-demo-item">
+          <div class="cate-icon" >
+            <img style=" width: 2rem; height: 2rem;" src='./assets/img/duck.png' />
+          </div>
+          <div style="margin:auto">{{ item.food }}</div>
+        </p>
+      </div>
+    </el-scrollbar>
 
-    <div style="border:dashed #c8c9cc 0.1rem;" />
+    <div class="divide" />
 
-  
+<div style="margin:0 3vw">
+  <el-row :gutter="5">
+    <el-col
+        v-for="(o, index) in 5"
+        :key="o"
+        :xs="12" :sm="12" :md="8" :lg="6" :xl="4"
+        style="margin-top:1vw">
+        <el-card :body-style="{ padding: '5px' }">
+          <div style="margin: 2vw 2vw;">
+            <el-avatar :size="150" :src="src" />
+          </div>
+          <div style="padding: 4vw">
+            <span>Chili Sauce Roasted Star</span>
+            <div class="bottom">
+              <p class="price">$17.00</p>
+              <span class="sale-container">
+                <span class="sale-text">Hot Sale</span>
+              </span>
+           
+            </div>
+            <span class="quantity">10 Sold</span>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+</div>
+    
+    
 
-     
+    
+    
+  </template>
 
-
-
-
-
-
-</template>
 <style scoped>
-
-.menu-item{
-  font-size: 1.2rem;
-  text-align: center;
+.cate-icon{
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: white;
+  margin-left: 0.3rem;
+}
+.divide{
+  border:solid #c8c9cc 0.1rem;
+}
+.el-card{
+  display: flex;
+}
+.menu-head{
+  height:4rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  margin: 0;
+  padding : 0;
+}
+.menu-head-item{
+  display: flex;
+  margin: 2vw;
 }
 .duck-logo{
   width: 4em;
@@ -95,7 +129,7 @@ items=[{id:1,food:'duck'},
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 8rem;
   height: 3rem;
   margin: 0.4rem;
@@ -103,6 +137,43 @@ items=[{id:1,food:'duck'},
   border-radius: 5rem;
   background: #f4f4f5;
   color: #000000;
+}
+
+.quantity {
+  font-size: 3vw;
+  color: #999;
+}
+
+.bottom {
+  margin-top: 1vw;
+  line-height:1vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap ;
+  align-items: center;
+  border-radius: 5rem;
+  color: #ffffff;
+}
+
+
+.image {
+  width: 100%;
+  display: block;
+}
+.sale-container{
+  width: 8vw;
+  margin-left: 1vw;
+  padding: 2vw;
+  border-radius: 4vw;
+  background-color: #f4c436;
+}
+.sale-text {
+  text-align: center;
+  font-size: 2vw;
+}
+.price{
+  color:#eb0707 ;
+  font-size: 4vw;
 }
 
 </style>
