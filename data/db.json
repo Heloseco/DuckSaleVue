@@ -1,0 +1,22 @@
+{
+    "foods": [
+        {
+            "id":1,
+            "name": "Roasted Duck",
+            "price": {
+                "small": 10 ,
+                "medium": 15,
+                "large": 20
+            }
+        },
+        {
+           "id":2,
+            "name": "Duck Chilli",
+            "price": {
+                "small": 12 ,
+                "medium": 17,
+                "large": 22
+            }
+        }
+    ]
+}

@@ -15,15 +15,23 @@
             <p class="Menu-head">Chilli Sauce Roasted Star Duck</p>
             <div class="Sale">
               <div class="price">
-                <span>32$</span>
+                <span>{{ price }} $</span>
               </div>
               <div class="amount">
-                <el-button style="margin:0 0.5rem;" type="info" :icon="Minus" circle />
-                <p style="margin:0 0.5rem; font-weight: bold;">2</p>
-                <el-button style="margin:0 0.5rem;"  type="warning" :icon="Plus" circle />
+                <el-button style="margin:0 0.5rem;" type="info" :icon="Minus" circle  @click="Dec_Amt()"/>
+                <p style="margin:0 0.5rem; font-weight: bold;">{{ amt }}</p>
+                <el-button style="margin:0 0.5rem;"  type="warning" :icon="Plus" circle @click="Inc_Amt()" />
               </div>
             </div>
             
+            <div style="margin-left: 1rem;">
+              <el-radio-group v-model="duck_size" fill=#e86363 size="large">
+                <el-radio-button label="Small"    />
+                <el-radio-button label="Medium"   />
+                <el-radio-button label="Large"    />
+              </el-radio-group>
+            </div>
+
             <div class="divide" />
             
             <div class="Desc-Menu">
@@ -67,6 +75,8 @@
             </div>
           </div>
         </div>
+
+  
       </el-main>
       <el-footer height="5vh" style="padding: 0 2vw;">
         <el-row>
@@ -77,7 +87,6 @@
             <el-button type="warning" size="large" class="btn btn-add">Add to Cart</el-button>
           </el-col>
         </el-row>
-  
       </el-footer>
     </el-container>
         
@@ -95,7 +104,9 @@ import {
 } from '@element-plus/icons-vue'
 const fit= 'fill'
 const url= 'RoastDuck.jpg'
-
+const amt = ref(1);
+const price = ref(12)
+const duck_size = ref('Small')
 </script>
 
 <style scoped>
@@ -108,7 +119,7 @@ const url= 'RoastDuck.jpg'
   height: 100%;
   width: 100%;
   justify-content: center;
-  background-color: pink;
+  background-color: #f09494;
   border-radius:  0 0 5% 5%;
 }
 .demo-image .block {
