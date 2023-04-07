@@ -17,6 +17,24 @@
                 "medium": 17,
                 "large": 22
             }
-        }
+        },
+        {
+            "id":3,
+             "name": "Vegetable Chilli",
+             "price": {
+                 "small": 2 ,
+                 "medium": 4,
+                 "large": 5
+             }
+         },
+         {
+            "id":4,
+             "name": "Coca Cola",
+             "price": {
+                 "small": 1 ,
+                 "medium": 2,
+                 "large": 3
+             }
+         }
     ]
 }

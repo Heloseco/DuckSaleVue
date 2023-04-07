@@ -11,7 +11,7 @@ const toggle = () => {
 };
 
 
-const src='RoastDucks.jpg'
+const src='RoastDuck.jpg'
 
 
 const items=[
@@ -34,7 +34,7 @@ const items=[
         <el-icon v-else @click="toggle" :size="30"><Fold /></el-icon>
       </div>
       <div class="menu-head-item">  
-        <img src="./assets/img/duck.png" class="duck-logo">
+        <img src="../assets/img/duck.png" class="duck-logo">
       </div>
       <div class="menu-head-item">  
         <el-icon :size="30"><ShoppingCart /></el-icon>
@@ -47,7 +47,7 @@ const items=[
       <div class="scrollbar-flex-content">
         <p v-for="item in items" :key="item.id" native='false' class="scrollbar-demo-item">
           <div class="cate-icon" >
-            <img style=" width: 2rem; height: 2rem;" src='./assets/img/duck.png' />
+            <img style=" width: 2rem; height: 2rem;" src='../assets/img/duck.png' />
           </div>
           <div style="margin:auto">{{ item.food }}</div>
         </p>
@@ -64,7 +64,7 @@ const items=[
         :xs="12" :sm="12" :md="8" :lg="6" :xl="4"
         style="margin-top:1vw">
         <el-card :body-style="{ padding: '5px' }">
-          <div style="margin: 2vw 2vw;">
+          <div style="margin: 2vw 2vw">
             <el-avatar :size="150" :src="src" />
           </div>
           <div style="padding: 4vw">
@@ -122,6 +122,7 @@ const items=[
 
 .scrollbar-flex-content {
   display: flex;
+  margin: 0 0.5rem;
 }
 .scrollbar-demo-item {
   flex-shrink: 0;
