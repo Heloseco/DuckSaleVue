@@ -3,15 +3,18 @@
         {
             "id":1,
             "name": "Roasted Duck",
+            "food":"Meat",
             "price": {
                 "small": 10 ,
                 "medium": 15,
                 "large": 20
             }
+            
         },
         {
            "id":2,
             "name": "Duck Chilli",
+            "food":"Meat",
             "price": {
                 "small": 12 ,
                 "medium": 17,
@@ -21,6 +24,7 @@
         {
             "id":3,
              "name": "Vegetable Chilli",
+             "food":"Vegtable",
              "price": {
                  "small": 2 ,
                  "medium": 4,
@@ -30,6 +34,7 @@
          {
             "id":4,
              "name": "Coca Cola",
+             "food":"Drink",
              "price": {
                  "small": 1 ,
                  "medium": 2,

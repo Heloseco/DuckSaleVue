@@ -9,7 +9,7 @@ const isActive = ref(false);
 const toggle = () => {
   isActive.value = !isActive.value;
 };
-
+const btnIndex =ref(0)
 
 const src='RoastDuck.jpg'
 
@@ -45,12 +45,15 @@ const items=[
     <!-- CATEGORY MENU -->
     <el-scrollbar style="background-color: white;">
       <div class="scrollbar-flex-content">
-        <p v-for="item in items" :key="item.id" native='false' class="scrollbar-demo-item">
-          <div class="cate-icon" >
+        <div v-for="(item,index) in items">
+        <a class="btn scrollbar-demo-item" :class="{'btnActive': index === btnIndex }" @click="btnIndex = index">
+        <div class="cate-icon" >
             <img style=" width: 2rem; height: 2rem;" src='../assets/img/duck.png' />
           </div>
           <div style="margin:auto">{{ item.food }}</div>
-        </p>
+         </a>
+         
+        </div>
       </div>
     </el-scrollbar>
 
@@ -136,6 +139,11 @@ const items=[
   border-radius: 5rem;
   background: #f4f4f5;
   color: #000000;
+}
+
+.btnActive{
+  background-color: #e86363;
+  color: #ffffff;
 }
 
 .quantity {
