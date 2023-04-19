@@ -1,38 +1,44 @@
 <script setup>
-import { ref,computed} from 'vue'
+import { ref,onMounted} from 'vue'
 import { 
   Expand,Fold,ShoppingCart
 } from '@element-plus/icons-vue'
 
+const foods = ref([]);
+const food_Cate = ref([]);
+
 const isActive = ref(false);
+const btnIndex =ref(0)
 
 const toggle = () => {
   isActive.value = !isActive.value;
 };
-const btnIndex =ref(0)
 
-const src='RoastDuck.jpg'
-
-
-const items=[
-{id:1,food:'All Food'},
-{id:2,food:'Meat'},
-{id:3,food:'Vegetable'},
-{id:4,food:'Drinks'}
-]
+onMounted(async () => {
+  // Fetch data from the API
+  const response = await fetch('http://localhost:3000/foods')
+  const data = await response.json()
+  // Assign the fetched data to the `data` variable
+  foods.value = data
+  data.forEach(food => {
+      if(!food_Cate.value.includes(food.food)){
+        food_Cate.value.push(food.food);
+    }
+  })
+  food_Cate.value.unshift('All Food');
+})
 
 
 
 </script>
 <template>
  
-
-    <!-- header menu -->
-    <div class="menu-head">
-      <div class="menu-head-item">  
-        <el-icon :size="30" v-if="!isActive" @click="toggle"><Expand /></el-icon>
-        <el-icon v-else @click="toggle" :size="30"><Fold /></el-icon>
-      </div>
+  <!-- header menu -->
+  <div class="menu-head">
+    <div class="menu-head-item">  
+      <el-icon :size="30" v-if="!isActive" @click="toggle"><Expand /></el-icon>
+      <el-icon v-else @click="toggle" :size="30"><Fold /></el-icon>
+    </div>
       <div class="menu-head-item">  
         <img src="../assets/img/duck.png" class="duck-logo">
       </div>
@@ -44,51 +50,51 @@ const items=[
     <div class="divide" />
     <!-- CATEGORY MENU -->
     <el-scrollbar style="background-color: white;">
-      <div class="scrollbar-flex-content">
-        <div v-for="(item,index) in items">
-        <a class="btn scrollbar-demo-item" :class="{'btnActive': index === btnIndex }" @click="btnIndex = index">
+  <div class="scrollbar-flex-content">
+    <div v-for="(food, index) in food_Cate" :key="food" >
+      <a class="btn scrollbar-demo-item" :class="{'btnActive': index === btnIndex }" @click="btnIndex = index">
         <div class="cate-icon" >
-            <img style=" width: 2rem; height: 2rem;" src='../assets/img/duck.png' />
-          </div>
-          <div style="margin:auto">{{ item.food }}</div>
-         </a>
-         
+          <img style="width: 2rem; height: 2rem;" src="../assets/img/duck.png" />
         </div>
-      </div>
-    </el-scrollbar>
+        <div style="margin:auto">{{ food }}</div>
+      </a>
+    </div>
+  </div>
+</el-scrollbar>
 
+    
     <div class="divide" />
-
+    
 <div style="margin:0 3vw">
   <el-row :gutter="5">
     <el-col
-        v-for="(o, index) in 5"
-        :key="o"
-        :xs="12" :sm="12" :md="8" :lg="6" :xl="4"
-        style="margin-top:1vw">
-        <el-card :body-style="{ padding: '5px' }">
-          <div style="margin: 2vw 2vw">
-            <el-avatar :size="150" :src="src" />
-          </div>
-          <div style="padding: 4vw">
-            <span>Chili Sauce Roasted Star</span>
-            <div class="bottom">
-              <p class="price">$17.00</p>
-              <span class="sale-container">
-                <span class="sale-text">Hot Sale</span>
-              </span>
-           
-            </div>
-            <span class="quantity">10 Sold</span>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+    v-for="(food, index) in foods"
+    :key="food.id"
+    :xs="12" :sm="12" :md="8" :lg="6" :xl="4"
+    style="margin-top:1vw">
+    <el-card :body-style="{ padding: '5px' }">
+      <div class="duck-image">
+        <el-image class="img" :src="food.img" />
+      </div>
+      <div style="padding: 4vw">
+        <span>{{ food.name }}</span>
+        <div class="bottom">
+          <p class="price">{{ food.price.small }}.00$</p>
+          <span class="sale-container">
+            <span class="sale-text">Hot Sale</span>
+          </span>
+        </div>
+        <span class="quantity">10 Sold</span>
+      </div>
+    </el-card>
+  </el-col>
+</el-row>
 </div>
-    
-    
 
-    
+
+
+
+
     
   </template>
 
@@ -181,6 +187,21 @@ const items=[
 .price{
   color:#eb0707 ;
   font-size: 4vw;
+}
+
+.duck-image{
+
+  margin: 3vw;
+  width:  10rem;
+  height: 10rem;
+
+}
+
+.img {
+  border-radius: 50%;
+  width: 100%;
+  height:100%;
+  
 }
 
 </style>
